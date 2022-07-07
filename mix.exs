@@ -45,7 +45,9 @@ defmodule Rockelivery.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
-      {:pbkdf2_elixir, "~> 1.3"}
+      {:pbkdf2_elixir, "~> 1.3"},
+      {:tesla, "~> 1.4"},
+      {:hackney, "~> 1.17"}
     ]
   end
 
