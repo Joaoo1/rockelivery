@@ -1,4 +1,4 @@
-defmodule Rockelivery.Repo.Migrations.CreateItemCategoryType do
+defmodule Rockelivery.Repo.Migrations.CreatePaymentMethodType do
   use Ecto.Migration
 
   def change do
