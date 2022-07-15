@@ -1,7 +1,7 @@
 defmodule Rockelivery.Orders.Create do
   import Ecto.Query
 
-  alias Rockelivery.{Error, Repo, Order, Item}
+  alias Rockelivery.{Error, Item, Order, Repo}
   alias Rockelivery.Orders.ValidateAndMultiplyItems
 
   def call(%{"items" => items_params} = params) do
