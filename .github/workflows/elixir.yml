@@ -11,6 +11,18 @@ jobs:
     name: Build and test
     runs-on: ubuntu-latest
 
+    services:
+      db:
+        image: postgres:11
+        ports: ['5432:5432']
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
       - uses: actions/checkout@v2
       - name: Set up Elixir
@@ -29,23 +41,6 @@ jobs:
       - name: Install dependencies
         run: mix deps.get
 
-  test:
-    needs: build
-    runs-on: ubuntu-latest
-
-    services:
-      db:
-        image: postgres:11
-        ports: ['5432:5432']
-        env:
-          POSTGRES_PASSWORD: postgres
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-
-    steps:
       - name: Check Formatting
         run: mix format --check-formatted
 
@@ -56,7 +51,7 @@ jobs:
         run: mix test
 
   deploy:
-    needs: test # Will only run if the test job succeeds
+    needs: build # Will only run if the test job succeeds
     if: github.ref == 'refs/heads/main' # Only run this job if it is on the main branch
 
     runs-on: ubuntu-latest
